@@ -3,7 +3,7 @@ model Measured_SmallScale
   "Long term validation of ground temperature response model using the small scale experiment of Cimmino and Bernier (2015)"
   extends Modelica.Icons.Example;
 
-  parameter Real sizFac=375.0 "Scaling factor of the experiment";
+  parameter Real sizFac=0.075/0.00629 "Scaling factor of the experiment";
   parameter IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Borefield
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -12,7 +12,7 @@ model Measured_SmallScale
     nCel=5,
     borFieDat=borFieDat,
     forceGFunCalc=true,
-    tLoaAgg=360000) "Ground temperature response of borehole"
+    tLoaAgg=3600) "Ground temperature response of borehole"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable meaDat(
@@ -52,7 +52,7 @@ equation
           -24},{20,0},{11,0}}, color={0,0,127}));
   connect(groTemRes.QBor_flow, scaFac.y)
     annotation (Line(points={{-11,0},{-19,0}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StopTime=85050000000.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=85968000.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Measured_SmallScale.mos"
         "Simulate and plot"),
 Documentation(info="<html>
