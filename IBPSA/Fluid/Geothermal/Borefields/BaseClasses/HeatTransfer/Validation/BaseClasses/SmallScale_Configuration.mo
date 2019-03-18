@@ -8,13 +8,13 @@ record SmallScale_Configuration
       cooBor={{0,0}},
       mBor_flow_nominal=0.0303/60,
       dp_nominal=5e4,
-      hBor=0.4*0.075/0.00629,
-      rBor=0.00629*0.075/0.00629,
-      dBor=0.019*0.075/0.00629,
-      rTub=0.125*0.0254/2*0.075/0.00629,
+      hBor=0.4,
+      rBor=0.00629,
+      dBor=0.019,
+      rTub=0.125,
       kTub=401.0,
-      eTub=0.06*0.0254*0.075/0.00629,
-      xC=0.0050/2*0.075/0.00629);
+      eTub=0.06,
+      xC=0.0050/2);
 
 annotation (
 defaultComponentPrefixes="parameter",
