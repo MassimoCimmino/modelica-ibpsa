@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.Compressors.BaseClasses;
 partial model PartialCompressor "Partial compressor model"
 
-  replaceable package ref = IBPSA.Media.Refrigerants.R410A
+  replaceable package ref =
+      AixLib.Media.Refrigerants.R410A_HEoS.R410a_IIR_P1_48_T233_473_Horner
     "Refrigerant in the component"
     annotation (choicesAllMatching = true);
 
@@ -67,28 +68,29 @@ equation
 
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
-  vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
+  vSuc = 1/ref.density_pT(pSuc, TSuc);
 
   // Saturation pressure of refrigerant vapor at condenser temperature
-  pCon = ref.pressureSatVap_T(port_b.T);
+//   pCon = ref.pressureSatVap_T(port_b.T);
+  pCon = ref.saturationPressure(port_b.T);
 
   // Specific enthaply of saturated liquid refrigerant at condenser temperature
-  hCon = ref.enthalpySatLiq_T(port_b.T);
+  hCon = ref.bubbleEnthalpy(ref.setSat_T(port_b.T));
 
   // Saturation pressure of refrigerant vapor at evaporator temperature
-  pEva = ref.pressureSatVap_T(port_a.T);
+  pEva = ref.saturationPressure(port_a.T);
 
   // Specific enthaply of saturated refrigerant vapor at evaporator temperature
-  hEva = ref.enthalpySatVap_T(port_a.T);
+  hEva = ref.dewEnthalpy(ref.setSat_T(port_a.T));
 
-  // Assert statements to verify that the refrigerant temperatures are within
-  // bounds of the property data in the refrigerant package
-  assert(port_b.T > ref.T_min and port_b.T < ref.TCri,
-    "Condensing temperature must be above the minimum refrigerant temperature
-    and below the critical temperature.");
-  assert(port_a.T > ref.T_min and port_a.T < ref.TCri,
-    "Evaporating temperature must be above the minimum refrigerant temperature
-    and below the critical temperature.");
+//   // Assert statements to verify that the refrigerant temperatures are within
+//   // bounds of the property data in the refrigerant package
+//   assert(port_b.T > ref.T_min and port_b.T < ref.TCri,
+//     "Condensing temperature must be above the minimum refrigerant temperature
+//     and below the critical temperature.");
+//   assert(port_a.T > ref.T_min and port_a.T < ref.TCri,
+//     "Evaporating temperature must be above the minimum refrigerant temperature
+//     and below the critical temperature.");
 
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},

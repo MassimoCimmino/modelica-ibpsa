@@ -6,7 +6,8 @@ partial model PartialWaterToWater
     final computeFlowResistance1 = dp1_nominal > 0,
     final computeFlowResistance2 = dp2_nominal > 0);
 
-  replaceable package ref = IBPSA.Media.Refrigerants.R410A
+  replaceable package ref =
+      AixLib.Media.Refrigerants.R410A_HEoS.R410a_IIR_P1_48_T233_473_Horner
     "Refrigerant in the component"
     annotation (choicesAllMatching = true);
 
@@ -46,7 +47,7 @@ partial model PartialWaterToWater
   parameter Boolean enable_temperature_protection = true
     "Enable temperature protection"
     annotation(Evaluate=true, Dialog(group="Temperature protection"));
-  parameter Modelica.SIunits.Temperature TConMax = ref.TCri-5
+  parameter Modelica.SIunits.Temperature TConMax = 400.00
     "Upper bound for condenser temperature"
     annotation(Dialog(enable=enable_temperature_protection, group="Temperature protection"));
   parameter Modelica.SIunits.Temperature TEvaMin = 275.15
